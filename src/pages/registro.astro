@@ -1,0 +1,33 @@
+---
+import Auth from '../layouts/Auth.astro';
+---
+<Auth title="Crear cuenta · TradePro" active="registro">
+  <form id="registro">
+    <h1>Abre tu cuenta gratis</h1>
+    <input type="hidden" name="_subject" value="Nuevo registro en TradePro" /><input type="hidden" name="_template" value="table" /><input type="hidden" name="_captcha" value="false" />
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+    <div><label for="rn">Nombre completo</label><input id="rn" name="Nombre" required autocomplete="name" /></div>
+    <div><label for="re">Correo</label><input id="re" name="email" type="email" required autocomplete="email" /></div>
+    <div><label for="rp">Contraseña</label><input id="rp" type="password" required minlength="8" autocomplete="new-password" /></div>
+    <div><label for="rpl">Plan</label><select id="rpl" name="Plan"><option value="basico">Básico (gratis)</option><option value="pro">Pro</option><option value="institucional">Institucional</option></select></div>
+    <label style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem"><input type="checkbox" required style="width:auto;margin-top:3px" /><span>Tengo 18 años o más y acepto los <a href="/terminos#terminos" style="color:var(--cy)">términos y condiciones</a> y la <a href="/terminos#privacidad" style="color:var(--cy)">política de privacidad</a>.</span></label>
+    <button class="btn p" type="submit" id="rsend">Crear cuenta</button>
+    <p class="note" id="rmsg" role="status"></p>
+    <p class="alt">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
+  </form>
+</Auth>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const plan = new URLSearchParams(location.search).get('plan'); if (plan) $('rpl').value = plan;
+  // Envía nombre, correo y plan por correo (la contraseña NO se envía)
+  $('registro').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.target, m = $('rmsg'), b = $('rsend'); b.disabled = true; m.style.color = 'var(--mute)'; m.textContent = 'Creando cuenta…';
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/REDACTED', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(f))) });
+      const j = await r.json(); if (!(j.success === true || j.success === 'true')) throw 0;
+      f.reset(); m.style.color = 'var(--up)'; m.textContent = 'Solicitud recibida. Te escribiremos al correo indicado para activar tu cuenta.';
+    } catch { m.style.color = 'var(--dn)'; m.textContent = 'No pudimos completar el registro. Inténtalo de nuevo.'; }
+    b.disabled = false;
+  });
+</script>
