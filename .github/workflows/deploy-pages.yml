@@ -3,7 +3,7 @@ name: deploy-pages
 # Publishes the static site to GitHub Pages: https://hsoja.github.io/TradePro/
 on:
   push:
-    branches: [main, feat/news-portal] # TEMP: feature branch removed before merge
+    branches: [main]
   workflow_dispatch:
 
 permissions:

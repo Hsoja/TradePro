@@ -1,5 +1,3 @@
-import type { FeedMarket } from "../lib/tradingview";
-
 export type Quote = { symbol: string; title: string };
 
 export type Market = {
@@ -10,7 +8,6 @@ export type Market = {
   watch: string;
   lead: Quote;
   symbols: Quote[];
-  feed: FeedMarket;
   heatmap?: "stocks" | "crypto" | "forex";
   movers?: boolean;
 };
@@ -31,7 +28,6 @@ export const MARKETS: Market[] = [
       { symbol: "FOREXCOM:UKXGBP", title: "FTSE 100" },
       { symbol: "INDEX:NKY", title: "Nikkei 225" },
     ],
-    feed: "index",
   },
   {
     slug: "stocks",
@@ -50,7 +46,6 @@ export const MARKETS: Market[] = [
       { symbol: "NASDAQ:TSLA", title: "Tesla" },
       { symbol: "NYSE:JPM", title: "JPMorgan" },
     ],
-    feed: "stock",
     heatmap: "stocks",
     movers: true,
   },
@@ -69,7 +64,6 @@ export const MARKETS: Market[] = [
       { symbol: "OANDA:USB10YUSD", title: "US 10-year note" },
       { symbol: "OANDA:WTICOUSD", title: "WTI crude (24h)" },
     ],
-    feed: "futures",
   },
   {
     slug: "crypto",
@@ -86,7 +80,6 @@ export const MARKETS: Market[] = [
       { symbol: "BINANCE:BNBUSDT", title: "BNB" },
       { symbol: "BINANCE:DOGEUSDT", title: "Dogecoin" },
     ],
-    feed: "crypto",
     heatmap: "crypto",
   },
   {
@@ -106,7 +99,6 @@ export const MARKETS: Market[] = [
       { symbol: "OANDA:WHEATUSD", title: "Wheat" },
       { symbol: "OANDA:CORNUSD", title: "Corn" },
     ],
-    feed: "futures",
   },
   {
     slug: "forex",
@@ -123,7 +115,6 @@ export const MARKETS: Market[] = [
       { symbol: "FX:AUDUSD", title: "AUD/USD" },
       { symbol: "FX:USDCHF", title: "USD/CHF" },
     ],
-    feed: "forex",
     heatmap: "forex",
   },
 ];

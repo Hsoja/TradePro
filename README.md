@@ -12,7 +12,7 @@ TradePro collects the top market stories, live quotes, interactive charts, heatm
 
 ## Features
 
-- 📰 **Market news**: TradingView's top stories plus dedicated feeds for stocks, indices, crypto, futures and commodities, and forex.
+- 📰 **Market news**: TradingView's top stories across every market, shown next to the economic events scheduled to move prices.
 - 📈 **Live prices** in a scrolling ticker, a multi-asset market snapshot and per-market quote boards.
 - 🕯️ **Interactive charts**: a full TradingView chart on every market page, with one-click symbol switching and search for any ticker.
 - 🗺️ **Heatmaps** for the S&P 500 and crypto, top US movers and forex cross rates.
@@ -21,9 +21,9 @@ TradePro collects the top market stories, live quotes, interactive charts, heatm
 - ✨ **Animated background** of drifting price lines (lightweight canvas, paused in background tabs, still when reduced motion is on).
 - 🔐 **Private by design**: no accounts, forms, cookies or analytics; strict Content Security Policy; widgets isolated from the page.
 
-| Market page | News by market |
+| Market page | Economic calendar |
 | --- | --- |
-| ![Stocks page with a live NVIDIA chart and symbol chips](docs/screenshots/market.jpg) | ![News page with tabs for each market](docs/screenshots/news.jpg) |
+| ![Stocks page with a live NVIDIA chart and symbol chips](docs/screenshots/market.jpg) | ![Economic calendar with this week's releases and a reading guide](docs/screenshots/calendar.jpg) |
 
 ## Tech stack
 

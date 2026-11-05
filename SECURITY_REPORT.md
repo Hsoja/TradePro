@@ -49,3 +49,4 @@
 | R2 | GitHub Pages can't send custom headers, so `frame-ancestors` and `X-Frame-Options` don't apply there | Low | The site has no actions to hijack; use Cloudflare Pages or Netlify for full headers |
 | R3 | TradingView may set its own cookies inside the iframes | Low | Disclosed in the privacy section; blocking third-party cookies doesn't break the site |
 | R4 | Market data availability depends on TradingView's free widget licensing | Info | A test blocks symbols known to be unavailable |
+| R5 | Per-market news filtering would need TradingView's web-component script on our origin | Info | Declined on purpose to keep `script-src 'self'`; the site shows TradingView's top stories instead |

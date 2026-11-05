@@ -54,8 +54,8 @@ const heatmap =
   <section class="section shell" aria-labelledby="news-heading">
     <div class="grid-2-1">
       <div class="panel">
-        <div class="panel-head"><h2 id="news-heading" class="label-lg">{market.short} news</h2></div>
-        <TvWidget url={newsTimeline(market.feed)} title={`${market.name} news`} size="lg" />
+        <div class="panel-head"><h2 id="news-heading" class="label-lg">Latest market headlines</h2><a class="text-link small" href={href("/news/")}>All news</a></div>
+        <TvWidget url={newsTimeline()} title="Latest market headlines" size="lg" />
       </div>
       <div class="panel">
         <div class="panel-head"><h2 class="label-lg">Quotes</h2></div>

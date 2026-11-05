@@ -17,9 +17,9 @@ Browser
 | Route | Content |
 | --- | --- |
 | `/` | Top stories, exchange hours, market snapshot, top movers, heatmaps, economic calendar, market links |
-| `/news/` | News timeline per market (tabs load each feed on demand) |
+| `/news/` | Top stories feed next to the upcoming economic calendar |
 | `/markets/` | Market cards and a live quote board for every asset class |
-| `/markets/[slug]/` | One page per market (indices, stocks, futures, crypto, commodities, forex): chart with symbol chips, news, quotes, heatmap or cross rates |
+| `/markets/[slug]/` | One page per market (indices, stocks, futures, crypto, commodities, forex): chart with symbol chips, latest headlines, quotes, heatmap or cross rates |
 | `/chart/` | Full-size chart with symbol search |
 | `/calendar/` | Economic calendar with a short reading guide |
 | `/about/`, `/legal/`, `404` | Project information, disclaimer and privacy |
@@ -55,4 +55,5 @@ Typefaces: **Schibsted Grotesk**, a grotesque designed for a news publisher, for
 - **Iframes instead of TradingView's script.** The official snippet loads JavaScript from `s3.tradingview.com` into the page. Building the iframe URL ourselves keeps third-party code off our origin and lets the CSP stay at `script-src 'self'`.
 - **Static output.** A news portal that collects no data doesn't need a server, which removes most of the attack surface and makes hosting free.
 - **No Three.js.** The previous 3D background shipped a large library for a decorative effect; a 2D canvas gives the same sense of motion at a fraction of the size.
+- **One news feed.** TradingView's iframe news widget now always shows its editorial top stories and ignores per-market filters. Its newer filtered feed is a web component that runs TradingView's script on our page, so we keep the isolated top-stories feed rather than weaken the CSP.
 - **Symbols that free widgets can show.** CME, NYMEX, COMEX, CBOT and CBOE data, plus TVC bond yields, are not licensed for free widgets. A test blocks those symbols so the site never shows empty rows.

@@ -53,9 +53,9 @@ describe("widgetUrl", () => {
     expect(hash.length).toBeGreaterThan(10);
   });
 
-  it("builds market-specific news feeds", () => {
-    expect(decode(newsTimeline())).toMatchObject({ feedMode: "all_symbols" });
-    expect(decode(newsTimeline("crypto"))).toMatchObject({ feedMode: "market", market: "crypto" });
+  it("builds the top-stories news feed", () => {
+    expect(decode(newsTimeline())).toMatchObject({ feedMode: "all_symbols", displayMode: "regular" });
+    expect(decode(newsTimeline("compact"))).toMatchObject({ displayMode: "compact" });
   });
 
   it("filters the calendar to medium and high impact events", () => {

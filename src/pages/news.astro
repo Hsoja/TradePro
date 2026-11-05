@@ -1,42 +1,38 @@
 ---
 import Base from "../layouts/Base.astro";
 import TvWidget from "../components/TvWidget.astro";
-import { newsTimeline, type FeedMarket } from "../lib/tradingview";
-
-const feeds: { id: string; label: string; market?: FeedMarket; intro: string }[] = [
-  { id: "top", label: "Top stories", intro: "The most important headlines across every market." },
-  { id: "stocks", label: "Stocks", market: "stock", intro: "Earnings, guidance, deals and analyst calls." },
-  { id: "indices", label: "Indices", market: "index", intro: "What's driving the S&P 500, Nasdaq, Dow and global benchmarks." },
-  { id: "crypto", label: "Crypto", market: "crypto", intro: "Bitcoin, Ethereum, regulation and exchange news." },
-  { id: "futures", label: "Futures and commodities", market: "futures", intro: "Energy, metals, grains and index futures." },
-  { id: "forex", label: "Forex", market: "forex", intro: "Central banks, rates and the moves in major currency pairs." },
-];
+import { economicCalendar, newsTimeline } from "../lib/tradingview";
+import { href } from "../lib/url";
+import { MARKETS } from "../data/markets";
 ---
 
-<Base title="Market news | TradePro" description="Live headlines for stocks, indices, crypto, futures, commodities and forex.">
+<Base title="Market news | TradePro" description="The top stories moving stocks, crypto, futures, commodities and forex, next to today's economic calendar.">
   <section class="page-head shell">
     <p class="kicker"><span class="live-dot" aria-hidden="true"></span>Updated continuously</p>
     <h1 class="title-lg">Market news</h1>
-    <p class="lede">Pick a market to see the stories moving it. Headlines open on TradingView in a new tab.</p>
+    <p class="lede">TradingView's top stories across every market, next to the economic events scheduled to move prices. Headlines open on TradingView in a new tab.</p>
   </section>
 
-  <section class="shell section-tight" data-tabs>
-    <div class="tablist tablist-scroll" role="tablist" aria-label="News by market">
-      {
-        feeds.map((f, i) => (
-          <button role="tab" id={`tab-${f.id}`} aria-controls={`panel-${f.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? undefined : -1}>
-            {f.label}
-          </button>
-        ))
-      }
-    </div>
-    {
-      feeds.map((f, i) => (
-        <div class="panel" role="tabpanel" id={`panel-${f.id}`} aria-labelledby={`tab-${f.id}`} hidden={i !== 0}>
-          <p class="panel-intro muted">{f.intro}</p>
-          <TvWidget url={newsTimeline(f.market)} title={`${f.label} news`} size="xl" deferred={i !== 0} eager={i === 0} />
+  <section class="shell section-tight">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h2 class="label-lg">Top stories</h2></div>
+        <TvWidget url={newsTimeline()} title="Top market stories" size="xxl" eager />
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="label-lg">Coming up</h2>
+          <a class="text-link small" href={href("/calendar/")}>Full calendar</a>
         </div>
-      ))
-    }
+        <TvWidget url={economicCalendar()} title="Economic calendar" size="xxl" />
+      </div>
+    </div>
   </section>
+
+  <nav class="section shell" aria-label="Markets">
+    <h2 class="title">Follow the story in each market</h2>
+    <ul class="chips chips-links">
+      {MARKETS.map((m) => <li><a class="chip" href={href(`/markets/${m.slug}/`)}>{m.name}</a></li>)}
+    </ul>
+  </nav>
 </Base>

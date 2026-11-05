@@ -96,13 +96,13 @@ export const advancedChart = (symbol: string, interval = "D") =>
     support_host: "https://www.tradingview.com",
   });
 
-export type FeedMarket = "stock" | "crypto" | "forex" | "index" | "futures" | "cfd";
-
-export const newsTimeline = (market?: FeedMarket) =>
+/** TradingView's editorial top stories across all markets. (The iframe widget no longer
+ * honours per-market filters; the newer filtered feed needs TradingView's script on our page.) */
+export const newsTimeline = (displayMode: "regular" | "compact" = "regular") =>
   widgetUrl("timeline", {
     ...BRAND,
-    displayMode: "regular",
-    ...(market ? { feedMode: "market", market } : { feedMode: "all_symbols" }),
+    feedMode: "all_symbols",
+    displayMode,
   });
 
 export const economicCalendar = () =>
