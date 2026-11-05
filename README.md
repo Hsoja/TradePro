@@ -1,46 +1,44 @@
-# Astro Starter Kit: Basics
+# TradePro
 
-```sh
-npm create astro@latest -- --template basics
+**A modern landing page for a trading platform, with live market charts and a 3D animated background.**
+
+TradePro is a front-end project for a fictional trading platform. It shows live market data with TradingView widgets, an animated 3D background built with Three.js, and a full set of pages: home, sign up, log in and terms.
+
+## Features
+
+- 📈 **Live market charts** for stocks, ETFs, crypto and forex (TradingView widgets)
+- ✨ **3D animated background** built with Three.js
+- 🧩 **Bento-style feature grid**, animated counters and scroll-in effects
+- ❓ **FAQ section** and responsive layout for mobile and desktop
+- 🔐 **Sign up, log in and terms pages** with shared layouts
+
+## Tech stack
+
+Astro · Three.js · JavaScript · HTML · CSS · TradingView widgets
+
+## Project structure
+
+```
+src/
+  layouts/   Base and Auth page layouts
+  pages/     index, login, registro (sign up), terminos (terms)
+  scripts/   bg.js (3D background) and tv.js (TradingView charts)
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Run it locally
 
-## 🚀 Project Structure
+Requires Node 22.12+.
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # production build in ./dist
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Note
 
-## 🧞 Commands
+This is a design and front-end project. It does not execute real trades or handle real money.
 
-All commands are run from the root of the project, from a terminal:
+## Author
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**Katherine Mauricio Gonzalez** — Software Engineering student at Conestoga College, Waterloo, ON.
