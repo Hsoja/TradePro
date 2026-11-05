@@ -56,18 +56,18 @@ export const MARKETS: Market[] = [
   },
   {
     slug: "futures",
-    name: "Futures",
+    name: "Futures and 24-hour markets",
     short: "Futures",
-    summary: "Contracts that trade nearly around the clock, so they show how markets will open before the opening bell.",
-    watch: "Overnight futures react first to news from Asia and Europe and to surprise economic data.",
-    lead: { symbol: "CME_MINI:ES1!", title: "E-mini S&P 500" },
+    summary: "Contracts and around-the-clock index prices that show how markets will open before the opening bell.",
+    watch: "Overnight trading reacts first to news from Asia and Europe and to surprise economic data. US exchange futures (CME) aren't licensed for free widgets, so the S&P 500, Nasdaq and Dow are shown as 24-hour CFDs that track them.",
+    lead: { symbol: "OANDA:SPX500USD", title: "S&P 500 (24h)" },
     symbols: [
-      { symbol: "CME_MINI:ES1!", title: "E-mini S&P 500" },
-      { symbol: "CME_MINI:NQ1!", title: "E-mini Nasdaq 100" },
-      { symbol: "CBOT_MINI:YM1!", title: "E-mini Dow" },
-      { symbol: "CME:6E1!", title: "Euro FX" },
-      { symbol: "CBOT:ZN1!", title: "10-Year T-Note" },
-      { symbol: "NYMEX:CL1!", title: "Crude oil" },
+      { symbol: "OANDA:SPX500USD", title: "S&P 500 (24h)" },
+      { symbol: "OANDA:NAS100USD", title: "Nasdaq 100 (24h)" },
+      { symbol: "OANDA:US30USD", title: "Dow 30 (24h)" },
+      { symbol: "EUREX:FDAX1!", title: "DAX futures" },
+      { symbol: "OANDA:USB10YUSD", title: "US 10-year note" },
+      { symbol: "OANDA:WTICOUSD", title: "WTI crude (24h)" },
     ],
     feed: "futures",
   },
@@ -101,10 +101,10 @@ export const MARKETS: Market[] = [
       { symbol: "OANDA:XAGUSD", title: "Silver" },
       { symbol: "TVC:USOIL", title: "WTI crude" },
       { symbol: "TVC:UKOIL", title: "Brent crude" },
-      { symbol: "NYMEX:NG1!", title: "Natural gas" },
-      { symbol: "COMEX:HG1!", title: "Copper" },
-      { symbol: "CBOT:ZW1!", title: "Wheat" },
-      { symbol: "CBOT:ZC1!", title: "Corn" },
+      { symbol: "OANDA:NATGASUSD", title: "Natural gas" },
+      { symbol: "OANDA:XCUUSD", title: "Copper" },
+      { symbol: "OANDA:WHEATUSD", title: "Wheat" },
+      { symbol: "OANDA:CORNUSD", title: "Corn" },
     ],
     feed: "futures",
   },
@@ -128,25 +128,25 @@ export const MARKETS: Market[] = [
   },
 ];
 
+/** Bond prices (not yields): when the price falls, the yield rises. */
 export const BONDS: Quote[] = [
-  { symbol: "TVC:US10Y", title: "US 10-year yield" },
-  { symbol: "TVC:US02Y", title: "US 2-year yield" },
-  { symbol: "TVC:DE10Y", title: "Germany 10-year" },
-  { symbol: "TVC:CA10Y", title: "Canada 10-year" },
+  { symbol: "OANDA:USB10YUSD", title: "US 10-year note" },
+  { symbol: "OANDA:USB02YUSD", title: "US 2-year note" },
+  { symbol: "OANDA:DE10YBEUR", title: "German 10-year Bund" },
 ];
 
 export const TAPE: Quote[] = [
   { symbol: "FOREXCOM:SPXUSD", title: "S&P 500" },
   { symbol: "FOREXCOM:NSXUSD", title: "Nasdaq 100" },
   { symbol: "FOREXCOM:DJI", title: "Dow" },
-  { symbol: "CME_MINI:ES1!", title: "ES futures" },
+  { symbol: "EUREX:FDAX1!", title: "DAX futures" },
   { symbol: "BITSTAMP:BTCUSD", title: "Bitcoin" },
   { symbol: "BITSTAMP:ETHUSD", title: "Ethereum" },
   { symbol: "OANDA:XAUUSD", title: "Gold" },
   { symbol: "TVC:USOIL", title: "WTI" },
   { symbol: "FX:EURUSD", title: "EUR/USD" },
   { symbol: "FX:USDCAD", title: "USD/CAD" },
-  { symbol: "TVC:US10Y", title: "US 10Y" },
+  { symbol: "OANDA:USB10YUSD", title: "US 10Y note" },
 ];
 
 export function getMarket(slug: string): Market | undefined {

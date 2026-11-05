@@ -14,6 +14,12 @@ describe("market data", () => {
     all.forEach((q) => expect(isSymbol(q.symbol), q.symbol).toBe(true));
   });
 
+  it("avoids exchanges whose data isn't licensed for free widgets (shown as an error icon)", () => {
+    const all = [...MARKETS.flatMap((m) => [m.lead, ...m.symbols]), ...BONDS, ...TAPE];
+    const blocked = /^(CME|CME_MINI|CBOT|CBOT_MINI|NYMEX|COMEX|CBOE):|^TVC:(US|DE|CA|GB|JP)\d\dY$|^TVC:(DXY|VIX)$/;
+    all.forEach((q) => expect(blocked.test(q.symbol), q.symbol).toBe(false));
+  });
+
   it("covers every asset class the site promises", () => {
     ["indices", "stocks", "futures", "crypto", "commodities", "forex"].forEach((slug) => expect(getMarket(slug)).toBeDefined());
   });
