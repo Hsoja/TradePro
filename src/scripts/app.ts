@@ -84,19 +84,26 @@ function setupTabs() {
 /** Symbol chips that swap the chart in [data-chart-target]. */
 function setupSymbolSwitcher() {
   document.querySelectorAll<HTMLElement>("[data-symbols]").forEach((group) => {
-    const frame = document.getElementById(group.dataset.symbols ?? "")?.querySelector("iframe");
+    const container = document.getElementById(group.dataset.symbols ?? "");
     const label = document.getElementById(group.dataset.label ?? "");
-    if (!frame) return;
+    if (!container) return;
     group.querySelectorAll<HTMLButtonElement>("button[data-url]").forEach((button) => {
       button.addEventListener("click", () => {
         const url = button.dataset.url;
-        if (!isSafeWidgetUrl(url)) return;
+        const current = container.querySelector("iframe");
+        if (!isSafeWidgetUrl(url) || !current) return;
         group.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", "false"));
         button.setAttribute("aria-pressed", "true");
-        frame.parentElement?.classList.add("is-loading");
-        frame.addEventListener("load", () => frame.parentElement?.classList.remove("is-loading"), { once: true });
-        frame.src = url;
-        frame.title = `${button.textContent?.trim() ?? "Symbol"} live chart`;
+        // Only the URL hash differs between symbols, and a hash change doesn't reload an
+        // iframe, so swap in a fresh element (same sandbox and attributes) instead.
+        const next = current.cloneNode(false) as HTMLIFrameElement;
+        next.removeAttribute("data-src");
+        next.title = `${button.dataset.name ?? "Symbol"} live chart`;
+        const box = current.parentElement;
+        box?.classList.add("is-loading");
+        next.addEventListener("load", () => box?.classList.remove("is-loading"), { once: true });
+        next.src = url;
+        current.replaceWith(next);
         if (label) label.textContent = button.dataset.name ?? "";
       });
     });
