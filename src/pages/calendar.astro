@@ -1,0 +1,38 @@
+---
+import Base from "../layouts/Base.astro";
+import TvWidget from "../components/TvWidget.astro";
+import { economicCalendar } from "../lib/tradingview";
+---
+
+<Base title="Economic calendar | TradePro" description="Upcoming rate decisions, jobs reports and inflation data that move markets.">
+  <section class="page-head shell">
+    <h1 class="title-lg">Economic calendar</h1>
+    <p class="lede">Medium and high-impact releases for the US, Canada, the euro area, the UK, Germany, China and Japan. Times are shown in your time zone.</p>
+  </section>
+  <section class="shell section-tight">
+    <div class="grid-2-1">
+      <div class="panel">
+        <TvWidget url={economicCalendar()} title="Economic calendar" size="xxl" eager />
+      </div>
+      <aside class="panel guide" aria-labelledby="guide-heading">
+        <h2 id="guide-heading" class="label-lg">How to read it</h2>
+        <dl>
+          <dt>Actual</dt>
+          <dd>The number just released.</dd>
+          <dt>Forecast</dt>
+          <dd>What economists expected. Markets react to the gap between the two, not the number itself.</dd>
+          <dt>Prior</dt>
+          <dd>The previous reading, sometimes revised.</dd>
+        </dl>
+        <h3 class="label">Events that usually move markets</h3>
+        <ul class="plain-list">
+          <li>Central bank rate decisions (Fed, ECB, Bank of Canada)</li>
+          <li>Consumer price index (inflation)</li>
+          <li>Non-farm payrolls and unemployment rate</li>
+          <li>GDP and retail sales</li>
+          <li>Purchasing managers' indices (PMI)</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</Base>

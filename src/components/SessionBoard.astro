@@ -1,0 +1,29 @@
+---
+import { SESSIONS } from "../data/markets";
+---
+
+<section class="sessions" aria-labelledby="sessions-heading">
+  <div class="sessions-head">
+    <h2 id="sessions-heading" class="label-lg">Exchange hours</h2>
+    <p class="muted small" data-sessions-summary aria-live="polite">Checking exchange hours</p>
+  </div>
+  <ul class="session-list">
+    {
+      SESSIONS.map((s) => (
+        <li class="session" data-session={s.id} data-tz={s.tz} data-open={s.open} data-close={s.close} data-state="unknown">
+          <span class="session-dot" aria-hidden="true" />
+          <span class="session-name">
+            <strong>{s.city}</strong>
+            <span class="muted small">{s.exchange}</span>
+          </span>
+          <span class="session-time mono" data-time>--:--</span>
+          <span class="session-state">
+            <span data-state-label>{s.open} to {s.close}</span>
+            <span class="muted small" data-change />
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="muted tiny">Regular hours, Monday to Friday. Public holidays aren't included.</p>
+</section>

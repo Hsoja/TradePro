@@ -1,0 +1,39 @@
+---
+import Base from "../../layouts/Base.astro";
+import TvWidget from "../../components/TvWidget.astro";
+import { MARKETS } from "../../data/markets";
+import { marketQuotes } from "../../lib/tradingview";
+import { href } from "../../lib/url";
+
+const quotes = marketQuotes(MARKETS.map((m) => ({ name: m.short, symbols: m.symbols })));
+---
+
+<Base title="Markets | TradePro" description="Live prices for indices, stocks, futures, crypto, commodities and forex.">
+  <section class="page-head shell">
+    <h1 class="title-lg">Markets</h1>
+    <p class="lede">Every asset class we follow, with live quotes. Open one for its chart, heatmap and news.</p>
+  </section>
+
+  <section class="shell section-tight">
+    <ul class="market-grid">
+      {
+        MARKETS.map((m) => (
+          <li>
+            <a class="market-card" href={href(`/markets/${m.slug}/`)}>
+              <span class="market-card-name">{m.name}</span>
+              <span class="market-card-lead mono">{m.symbols.map((s) => s.title).slice(0, 3).join(", ")}</span>
+              <span class="market-card-text">{m.watch}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section shell" aria-labelledby="quotes">
+    <h2 id="quotes" class="title">Live quotes</h2>
+    <div class="panel">
+      <TvWidget url={quotes} title="Live quotes by asset class" size="xl" />
+    </div>
+  </section>
+</Base>

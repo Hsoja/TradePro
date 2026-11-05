@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import TvWidget from "../components/TvWidget.astro";
+import { MARKETS } from "../data/markets";
+import { advancedChart } from "../lib/tradingview";
+
+const picks = MARKETS.map((m) => m.lead);
+---
+
+<Base title="Live chart | TradePro" description="A full TradingView chart for any stock, index, future, crypto or currency pair.">
+  <section class="page-head shell">
+    <h1 class="title-lg">Live chart</h1>
+    <p class="lede">Start from a benchmark below, or use the search box at the top left of the chart to open any symbol TradingView covers.</p>
+  </section>
+  <section class="shell section-tight">
+    <div class="panel">
+      <div class="chips" data-symbols="main-chart" aria-label="Choose a symbol">
+        {
+          picks.map((s, i) => (
+            <button type="button" class="chip" data-url={advancedChart(s.symbol)} data-name={s.title} aria-pressed={i === 0 ? "true" : "false"}>
+              {s.title}
+            </button>
+          ))
+        }
+      </div>
+      <div id="main-chart">
+        <TvWidget url={advancedChart(picks[0].symbol)} title={`${picks[0].title} live chart`} size="xxl" eager />
+      </div>
+    </div>
+  </section>
+</Base>
