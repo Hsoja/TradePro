@@ -1,0 +1,47 @@
+---
+/**
+ * A TradingView widget as an isolated, cross-origin iframe.
+ * `deferred` widgets keep their URL in data-src and load when their tab is opened.
+ */
+import { IFRAME_SANDBOX, WIDGET_HOST } from "../lib/tradingview";
+
+interface Props {
+  url: string;
+  title: string;
+  size?: "tape" | "sm" | "md" | "lg" | "xl" | "xxl" | "fill";
+  deferred?: boolean;
+  eager?: boolean;
+}
+
+const { url, title, size = "md", deferred = false, eager = false } = Astro.props;
+
+if (!url.startsWith(`${WIDGET_HOST}/embed-widget/`)) {
+  throw new Error(`Refusing to embed a non-TradingView URL: ${url}`);
+}
+---
+
+<div class:list={["tv", `tv-${size}`]} data-widget>
+  {
+    deferred ? (
+      <iframe
+        data-src={url}
+        title={title}
+        sandbox={IFRAME_SANDBOX}
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow=""
+        scrolling="no"
+      />
+    ) : (
+      <iframe
+        src={url}
+        title={title}
+        sandbox={IFRAME_SANDBOX}
+        referrerpolicy="strict-origin-when-cross-origin"
+        loading={eager ? "eager" : "lazy"}
+        allow=""
+        scrolling="no"
+      />
+    )
+  }
+  <span class="tv-loading" aria-hidden="true">Loading live data</span>
+</div>

@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/url";
+---
+
+<Base title="About | TradePro" description="How TradePro is built and how it keeps visitors' data private.">
+  <section class="page-head shell">
+    <h1 class="title-lg">About TradePro</h1>
+    <p class="lede">A market news portal built as a portfolio project: a static site that brings TradingView's live data into one clear, fast page.</p>
+  </section>
+  <div class="shell about-grid">
+    <section class="panel">
+      <h2 class="label-lg">What it covers</h2>
+      <ul class="plain-list">
+        <li>Top stories and news by market</li>
+        <li>Live prices for indices, stocks, futures, crypto, commodities and forex</li>
+        <li>Full interactive charts and heatmaps</li>
+        <li>The week's economic calendar and live exchange hours</li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h2 class="label-lg">Private by design</h2>
+      <ul class="plain-list">
+        <li>No accounts, forms, cookies or analytics of our own</li>
+        <li>Fonts and scripts are served from this site only</li>
+        <li>TradingView widgets run in isolated iframes, so their code can't read this page</li>
+        <li>A strict Content Security Policy blocks any other third-party content</li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h2 class="label-lg">Not a trading platform</h2>
+      <p class="muted">TradePro shows information only. It doesn't hold money, place orders or give investment advice. Read the <a href={href("/legal/")}>disclaimer</a>.</p>
+      <p class="muted">Source code: <a href="https://github.com/Hsoja/TradePro" rel="noopener noreferrer" target="_blank">github.com/Hsoja/TradePro</a></p>
+    </section>
+  </div>
+</Base>

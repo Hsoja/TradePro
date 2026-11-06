@@ -1,0 +1,94 @@
+---
+import Base from "../../layouts/Base.astro";
+import TvWidget from "../../components/TvWidget.astro";
+import { MARKETS, type Market } from "../../data/markets";
+import {
+  advancedChart,
+  cryptoHeatmap,
+  forexCrossRates,
+  marketQuotes,
+  newsTimeline,
+  stockHeatmap,
+  topMovers,
+} from "../../lib/tradingview";
+import { href } from "../../lib/url";
+
+export function getStaticPaths() {
+  return MARKETS.map((market) => ({ params: { slug: market.slug }, props: { market } }));
+}
+
+const { market } = Astro.props as { market: Market };
+const others = MARKETS.filter((m) => m.slug !== market.slug);
+const heatmap =
+  market.heatmap === "stocks" ? stockHeatmap() : market.heatmap === "crypto" ? cryptoHeatmap() : market.heatmap === "forex" ? forexCrossRates() : null;
+---
+
+<Base title={`${market.name} news and prices | TradePro`} description={market.summary}>
+  <section class="page-head shell">
+    <a class="back-link small" href={href("/markets/")}>All markets</a>
+    <h1 class="title-lg">{market.name}</h1>
+    <p class="lede">{market.summary}</p>
+    <p class="watch"><strong>What moves it:</strong> {market.watch}</p>
+  </section>
+
+  <section class="shell section-tight" aria-labelledby="chart-heading">
+    <div class="panel">
+      <div class="panel-head">
+        <h2 id="chart-heading" class="label-lg"><span id="chart-name" translate="no">{market.lead.title}</span> chart</h2>
+      </div>
+      <div class="chips" data-symbols="market-chart" data-label="chart-name" aria-label="Choose a symbol">
+        {
+          market.symbols.map((s, i) => (
+            <button type="button" class="chip" data-url={advancedChart(s.symbol)} data-name={s.title} aria-pressed={i === 0 ? "true" : "false"}>
+              {s.title}
+            </button>
+          ))
+        }
+      </div>
+      <div id="market-chart">
+        <TvWidget url={advancedChart(market.lead.symbol)} title={`${market.lead.title} live chart`} size="xl" eager />
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell" aria-labelledby="news-heading">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h2 id="news-heading" class="label-lg">Latest market headlines</h2><a class="text-link small" href={href("/news/")}>All news</a></div>
+        <TvWidget url={newsTimeline()} title="Latest market headlines" size="lg" />
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2 class="label-lg">Quotes</h2></div>
+        <TvWidget url={marketQuotes([{ name: market.short, symbols: market.symbols }])} title={`${market.name} quotes`} size="lg" />
+      </div>
+    </div>
+  </section>
+
+  {
+    (heatmap || market.movers) && (
+      <section class="section shell" aria-labelledby="breadth-heading">
+        <h2 id="breadth-heading" class="title">{market.heatmap === "forex" ? "Cross rates" : "Market breadth"}</h2>
+        <div class={market.movers && heatmap ? "grid-2-1" : ""}>
+          {heatmap && (
+            <div class="panel">
+              <TvWidget url={heatmap} title={`${market.name} ${market.heatmap === "forex" ? "cross rates" : "heatmap"}`} size="xl" />
+            </div>
+          )}
+          {market.movers && (
+            <div class="panel">
+              <div class="panel-head"><h3 class="label-lg">Top movers</h3></div>
+              <TvWidget url={topMovers("US")} title="Top US stock movers" size="xl" />
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <nav class="section shell" aria-label="Other markets">
+    <h2 class="title">Other markets</h2>
+    <ul class="chips chips-links">
+      {others.map((m) => <li><a class="chip" href={href(`/markets/${m.slug}/`)}>{m.short}</a></li>)}
+    </ul>
+  </nav>
+</Base>

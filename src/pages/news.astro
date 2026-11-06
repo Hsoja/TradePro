@@ -1,0 +1,38 @@
+---
+import Base from "../layouts/Base.astro";
+import TvWidget from "../components/TvWidget.astro";
+import { economicCalendar, newsTimeline } from "../lib/tradingview";
+import { href } from "../lib/url";
+import { MARKETS } from "../data/markets";
+---
+
+<Base title="Market news | TradePro" description="The top stories moving stocks, crypto, futures, commodities and forex, next to today's economic calendar.">
+  <section class="page-head shell">
+    <p class="kicker"><span class="live-dot" aria-hidden="true"></span>Updated continuously</p>
+    <h1 class="title-lg">Market news</h1>
+    <p class="lede">TradingView's top stories across every market, next to the economic events scheduled to move prices. Headlines open on TradingView in a new tab.</p>
+  </section>
+
+  <section class="shell section-tight">
+    <div class="grid-2-1">
+      <div class="panel">
+        <div class="panel-head"><h2 class="label-lg">Top stories</h2></div>
+        <TvWidget url={newsTimeline()} title="Top market stories" size="xxl" eager />
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="label-lg">Coming up</h2>
+          <a class="text-link small" href={href("/calendar/")}>Full calendar</a>
+        </div>
+        <TvWidget url={economicCalendar()} title="Economic calendar" size="xxl" />
+      </div>
+    </div>
+  </section>
+
+  <nav class="section shell" aria-label="Markets">
+    <h2 class="title">Follow the story in each market</h2>
+    <ul class="chips chips-links">
+      {MARKETS.map((m) => <li><a class="chip" href={href(`/markets/${m.slug}/`)}>{m.name}</a></li>)}
+    </ul>
+  </nav>
+</Base>
